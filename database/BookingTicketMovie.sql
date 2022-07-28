@@ -59,7 +59,7 @@ create table  ghengoi(
     primary key(id),
     foreign key(id_phong) references phong(id)
 );
-create table  tablephim(
+create table phim(
 	id int not null auto_increment,
     id_rapchieu int,
     id_quocgia int,
