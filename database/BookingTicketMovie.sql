@@ -6,7 +6,7 @@ create table quocgia(
     ten_quocgia varchar(255),
     primary key(id)
 );
-INSERT INTO `quocgia` (`id`,`ten_quocgia`) VALUES
+INSERT INTO quocgia (id,ten_quocgia) VALUES
 (1,'AMERICA'),
 (2,'VIETNAM'),
 (3,'KOREA'),
@@ -54,7 +54,7 @@ create table  datve(
     foreign key(id_ghengoi) references ghengoi(id)
     
 );
-INSERT INTO `datve` (`id`, `id_makhachhang`, `id_lichchieu`, `id_ghengoi`, `gia`, `trangthai_ghe`) VALUES
+INSERT INTO datve (id, id_makhachhang, id_lichchieu, id_ghengoi, gia, trangthai_ghe) VALUES
 (1, 1, 45, 750000, 1),
 (2, 2, 135, 750000, 0),
  (3, 11, 101, 75000, 1),
@@ -89,7 +89,7 @@ create table phim(
     foreign key(id_quocgia) references quocgia(id)
 	
 );
-INSERT INTO `phim` (`id`, `id_rapchieu`, `id_quocgia`, `tenphim`, `mota`, `trailerphim`, `theloai`, `dienvien`, `nhasanxuat`, `ngaykhoichieu`, `thoiluong`, `poster`,`phimcens`) VALUES
+INSERT INTO phim (id, id_rapchieu, id_quocgia, tenphim, mota, trailerphim, theloai, dienvien, nhasanxuat, ngaykhoichieu, thoiluong, poster,phimcens) VALUES
 (1, 84, 1,'Liên minh siêu thú', 'Trong “Liên Minh Siêu Thú DC”, Siêu Cún Krypto và Superman là cặp bài trùng
 không thể tách rời, cùng sở hữu những siêu năng lực tương tự và cùng nhau chiến đấu chống lại tội phạm tại
 thành phố Metropolis. Khi Superman và những thành viên của Liên Minh Công Lý bị bắt cóc, Krypto phải thuyết phục 
