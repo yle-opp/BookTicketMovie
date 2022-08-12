@@ -1,6 +1,9 @@
 create database QLDatVeXemPhim;
 use  QLDatVeXemPhim ;
 
+DROP DATABASE QLDatVeXemPhim;
+
+
 create table quocgia(
 	id int auto_increment,
     ten_quocgia varchar(255),
@@ -23,14 +26,29 @@ create table  khachhang(
     diachi nvarchar(255),
     dienthoai  nchar(10),
     gioitinh nchar(10),
-    ngaysinh int,
+    ngaysinh DATE ,
     primary key(id)
 );
+INSERT INTO khachhang (hoten, matkhau, taikhoan, hinhdaidien, email, diachi, dienthoai, gioitinh, ngaysinh) VALUES
+('Nguyễn Văn Trung', '123456', 'nguyenvantrung', '1.jpg', 'nguyenvantrung@gmail.com', '525/7/14 lê trọng tấn, Tp.HCM', '0123456781', 'NAM', '1997-05-11') ,
+('Trần Công Tùng', '123456', 'trancongtung', '2.jpg', 'trancongtung@gmail.com', '5 Lê Niệm, Tp.HCM', '0123456782', 'NAM', '1997-01-04'),
+('Lê Ngọc Ánh', '123456', 'lengocanh', '3.jpg', 'lengocanh@gmail.com', '41 Trường Chinh, Tp.HCM', '0123456783', 'NỮ', '1981-09-12'),
+('Nguyễn Giang Chương', '123456', 'nguyengiangchuong', '4.jpg', 'nguyengiangchuong@gmail.com', '400 Phan Văn Trị, Tp.HCM', '0123456784', 'NAM', '1993-01-03'),
+('Nguyễn Thị Bình', '123456', 'nguyenthibinh', '5.jpg', 'nguyenthibinh@gmail.com', '20 Nguyễn Trãi, Tp.HCM', '0123456785', 'NỮ', '1972-12-05'),
+('Phạm Trung Kiên', '123456', 'phamtrungkien', '6.jpg', 'phamtrungkien@gmail.com', '11 Lê Văn Quới, Tp.HCM', '0123456786', 'NAM', '2000-05-18'),
+('Ngô Thị Kim Nhung', '123456', 'ngothikimnhung', '7.jpg', 'ngothikimnhung@gmail.com', '77/10 Nguyễn Thị Minh Khai, Tp.HCM', '0123456787', 'NỮ', '1994-01-10'),
+('Nguyễn Minh Đức', '123456', 'nguyenminhduc', '8.jpg', 'nguyenminhduc@gmail.com', '146/19 Võ Thị Sáu, Tp.HCM', '0123456788', 'NAM', '2002-01-07'),
+('Hạ Quang Minh', '123456', 'haquangminh', '9.jpg', 'haquangminh@gmail.com', '128/2 Nguyễn Thị Định, Tp.HCM', '0123456789', 'NAM', '1984-09-06'),
+('Thanh Hanh', '123456', 'thanhhanh', '10.jpg', 'thanhhanh@gmail.com', '215 Thành Thái, Tp.HCM', '0123456780', 'NỮ', '1997-05-05') ;
+
 create table roleskh(
    id_role int,
    tenrole varchar(25),
    primary key(id_role)
 );
+INSERT INTO roleskh (id_role, tenrole) VALUES
+(1,'ROLE_USER'),
+(2,'ROLE_ADMIN');
 
 create table role_khachhang(
 	role_id int,
@@ -39,7 +57,53 @@ create table role_khachhang(
     foreign key(role_id) references roleskh(id_role),
     foreign key(user_id) references khachhang(id)
 );
+INSERT INTO role_khachhang(role_id, user_id) VALUES
+(1,1),
+(2,2),
+(1,3),
+(2,4),
+(1,5),
+(1,6),
+(2,7),
+(1,8),
+(1,9),
+(2,10);
 
+create table  rap(
+	id int not null auto_increment,
+    tenrap nvarchar(255),
+    diachi nvarchar(255),
+    primary key(id)
+    
+);
+INSERT INTO rap (tenrap, diachi) VALUES 
+('RAP 1', 'CGV vicom Nguyễn Thị Nghĩa,tp.hcm'),
+('RAP 2', 'CGV Nguyễn Hồng Đào, tp.hcm'),
+('RAP 3', 'CGV Aeon Binh Tân,tp.hcm'),
+('RAP 4', 'CGV Aeon Tân Phú,tp.hcm'),
+('RAP 5', 'CGV Sư Vạn Hạnh,tp.hcm'),
+('RAP 6', 'CGV Vincom Center Landmark 81,tp.hcm'),
+('RAP 7', 'CGV Hùng Vương Plaza,tp.hcm'),
+('RAP 8', 'CGV Pearl Plaza,tp.hcm'),
+('RAP 9', 'CGV Lý Chính Thắng,tp.hcm');
+
+create table  phong(
+	id int not null auto_increment,
+    id_rap int,
+    tenphong nvarchar(255),
+    primary key(id),
+	foreign key(id_rap) references rap(id)
+);
+INSERT INTO phong (id_rap, tenphong) VALUES 
+(1, 'ROOM 1'),
+(2, 'ROOM 2'),
+(3, 'ROOM 3'),
+(4, 'ROOM 4'),
+(5, 'ROOM 5'),
+(6, 'ROOM 6'),
+(7, 'ROOM 7'),
+(8, 'ROOM 8'),
+(9, 'ROOM 9');
 
 create table  datve(
 	id int not null auto_increment,
@@ -54,13 +118,13 @@ create table  datve(
     foreign key(id_ghengoi) references ghengoi(id)
     
 );
-INSERT INTO datve (id, id_makhachhang, id_lichchieu, id_ghengoi, gia, trangthai_ghe) VALUES
+INSERT INTO datve (id_makhachhang, id_lichchieu, id_ghengoi, gia, trangthai_ghe) VALUES
 (1, 1, 45, 750000, 1),
 (2, 2, 135, 750000, 0),
- (3, 11, 101, 75000, 1),
-(4, 22, 102, 90000, 0),
-(5, 33, 103, 85000, 0),
-(6, 44, 104, 105000, 1);
+ (3, 4, 101, 75000, 1),
+(4, 6, 102, 90000, 0),
+(5, 5, 103, 85000, 0),
+(6, 7, 104, 105000, 1);
 
 create table  ghengoi(
 	id int not null auto_increment,
@@ -826,46 +890,14 @@ INSERT INTO lichchieu (id_phim, id_phong, lichchieu, thoigianbatdau, thoigianket
 (1, 1, '2019-12-10', '17:15:00', '19:00:00'),
 (2, 2, '2019-12-11', '13:00:00', '14:30:00'),
 (1, 5, '2019-12-10', '17:15:00', '19:00:00'),
-(1, 7, '2019-12-12', '17:15:00', '19:00:00'),
+(1, 8, '2019-12-12', '17:15:00', '19:00:00'),
 (3, 3, '2019-12-10', '17:15:00', '19:00:00'),
 (5, 6, '2019-12-11', '17:15:00', '19:00:00'),
 (4, 9, '2019-12-08', '17:15:00', '19:00:00'),
 (2, 5, '2019-12-16', '17:15:00', '19:00:00'),
 (6, 4, '2019-12-10', '14:15:00', '16:00:00');
 
-create table  rap(
-	id int not null auto_increment,
-    tenrap nvarchar(255),
-    diachi nvarchar(255),
-    primary key(id)
-    
-);
-INSERT INTO rap (tenrap, diachi) VALUES 
-('RAP 1', 'tp.hcm'),
-('RAP 2', 'tp.hcm'),
-('RAP 3', 'tp.hcm'),
-('RAP 4', 'tp.hcm'),
-('RAP 5', 'tp.hcm'),
-('RAP 6', 'tp.hcm'),
-('RAP 7', 'tp.hcm'),
-('RAP 8', 'tp.hcm'),
-('RAP 9', 'tp.hcm');
 
 
-create table  phong(
-	id int not null auto_increment,
-    id_rap int,
-    tenphong nvarchar(255),
-    primary key(id),
-	foreign key(id_rap) references rap(id)
-);
-INSERT INTO phong (id_rap, tenphong) VALUES 
-(1, 'ROOM 1'),
-(2, 'ROOM 2'),
-(3, 'ROOM 3'),
-(4, 'ROOM 4'),
-(5, 'ROOM 5'),
-(6, 'ROOM 6'),
-(7, 'ROOM 7'),
-(8, 'ROOM 8'),
-(9, 'ROOM 9');
+
+
